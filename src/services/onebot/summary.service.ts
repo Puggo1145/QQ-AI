@@ -12,7 +12,7 @@ import type { BotEvent } from "../../types/bot-event";
 
 
 export const summaryGroupMsgService = async (group_id: BotEvent["group_id"]) => {
-    const history_count = 50;
+    const history_count = 100;
 
     try {
         // 1. 响应信息

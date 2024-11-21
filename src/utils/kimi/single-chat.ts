@@ -5,7 +5,7 @@ export const singleChat = async (msg: string) => {
 
     try {
         const completion = await client.chat.completions.create({
-            model: "moonshot-v1-8k",
+            model: "moonshot-v1-auto",
             messages: [
                 { role: "system", content: "你是 QQ AI Bot，你将帮助 QQ 群用户解决问题，提供简洁、清晰、安全和有帮助的回答。" },
                 { role: "user", content: msg }
