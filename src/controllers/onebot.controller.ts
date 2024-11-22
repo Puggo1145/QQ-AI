@@ -1,11 +1,10 @@
 import { Request } from "express";
 // services
-import { pingPongService } from "../services/onebot/ping-pong.service";
-import { summaryGroupMsgService } from "../services/onebot/summary.service";
+import { pingPongService, summaryGroupMsgService } from "../services/onebot";
 import { devService } from "../services/dev/dev.service";
 // utils
-import { extractUserMsg } from "../utils/extract-user-msg";
-import { replyGroupMsg } from "../utils/message/reply-group-msg";
+import { extractUserMsg } from "../utils/common/extract-user-msg";
+import { replyGroupMsg } from "../utils/onebot/message/reply-group-msg";
 // types
 import type { BotEvent } from "../types/bot-event";
 

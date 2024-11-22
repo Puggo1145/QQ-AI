@@ -1,8 +1,9 @@
-import { sendGroupTextMsg } from "../../utils/message/send-group-text-msg";
-import { developerWhitelist } from "../../constants/whitelist";
-import { replyGroupMsg } from "../../utils/message/reply-group-msg";
-import type { BotEvent } from "../../types/bot-event";
-import { getGroupMsgHistory } from "../../utils/message/get-group-msg-history";
+import { sendGroupTextMsg, replyGroupMsg, getGroupMsgHistory } from "@/utils/onebot/message";
+import { getGroupFiles } from "@/utils/onebot/file";
+// constants
+import { developerWhitelist } from "@/constants/whitelist";
+// types
+import type { BotEvent } from "@/types/bot-event";
 
 export const devService = async (event: BotEvent, command: string) => {
     // Check if user is in dev whitelist
@@ -16,10 +17,26 @@ export const devService = async (event: BotEvent, command: string) => {
             await sendGroupTextMsg(event.group_id, JSON.stringify(event, null, 2));
             break;
         case 'dev-get-history':
-            const history_msgs = await getGroupMsgHistory(event.group_id, 2);
-            await sendGroupTextMsg(event.group_id, JSON.stringify(history_msgs, null, 2));
+            try {
+                const history_msgs = await getGroupMsgHistory(event.group_id, 10);
+                console.log('最近10条历史消息：');
+                console.log(JSON.stringify(history_msgs, null, 2));
+                await replyGroupMsg(event.group_id, event.message_id, "历史消息已打印到控制台");
+            } catch (error: any) {
+                console.error('获取历史消息失败:', error);
+                await replyGroupMsg(event.group_id, event.message_id, `获取历史消息失败: ${error.message}`);
+            }
             break;
-        // Add more dev commands here
+        case 'dev-get-files':
+            try {
+                const files = await getGroupFiles(event.group_id);
+                console.log(JSON.stringify(files, null, 2));
+                await replyGroupMsg(event.group_id, event.message_id, "群文件已打印到控制台");
+            } catch (error: any) {
+                console.error('获取群文件失败:', error);
+                await replyGroupMsg(event.group_id, event.message_id, `获取群文件失败: ${error.message}`);
+            }
+            break;
         default:
             await replyGroupMsg(event.group_id, event.message_id, "未知的开发者命令");
             break;

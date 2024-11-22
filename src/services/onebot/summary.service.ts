@@ -1,10 +1,11 @@
 // utils
-import { extractUserMsg } from "../../utils/extract-user-msg";
-import { sendGroupTextMsg } from "../../utils/message/send-group-text-msg";
-import { getGroupMsgHistory } from "../../utils/message/get-group-msg-history";
-import { format } from "date-fns";
+import { extractUserMsg } from "../../utils/common/extract-user-msg";
+import { sendGroupTextMsg } from "../../utils/onebot/message/send-group-text-msg";
+import { getGroupMsgHistory } from "../../utils/onebot/message/get-group-msg-history";
+import { format, subDays } from "date-fns";
 // chat
-import { singleChat } from "../../utils/kimi";
+// import { singleChat } from "../../utils/kimi";
+import { singleChat } from "../../utils/ai/qwen";
 // constants
 import { prompts } from "../../constants/prompts";
 // types
@@ -16,28 +17,36 @@ export const summaryGroupMsgService = async (group_id: BotEvent["group_id"]) => 
 
     try {
         // 1. 响应信息
-        await sendGroupTextMsg(group_id, `正在总结群内事项（最近 ${history_count} 条消息）`);
+        await sendGroupTextMsg(group_id, `正在总结群事务（最近 ${history_count} 条消息）`);
 
         // 2. 获取历史消息
-        const history_msgs = await getGroupMsgHistory(group_id, history_count);
+        const history = await getGroupMsgHistory(
+            group_id, 
+            history_count,
+            {
+                includeBotMessage: false,
+                timeRange: {
+                    startTime: subDays(new Date(), 7).getTime(),
+                    endTime: new Date().getTime()
+                }
+            }
+        );
 
         // 3. 筛选用户消息并提取信息
-        const user_msgs = history_msgs.filter(msg => msg.sender.user_id !== Number(process.env.BOT_QQ_ID));
-        const formattedMsg = user_msgs.map(msg => ({
+        const formattedMsg = history.map(msg => ({
             sender: msg.sender.nickname,
-            time: format(msg.time * 1000, "yyyy-MM-dd HH:mm:ss"),
+            time: format(msg.time * 1000, "yyyy-MM-dd HH:mm"),
+            msg_type: msg.message[0].type,
             msg: extractUserMsg(msg.raw_message)
         }));
 
         // 4. 发送给 AI 总结
-        const kimiRes = await singleChat(
-            `${prompts.summary}\n${JSON.stringify(formattedMsg)}`
-        );
+        const res = await singleChat(`${prompts.summary}\n${JSON.stringify(formattedMsg)}`);
 
         // 5. 发送总结消息
         await sendGroupTextMsg(
             group_id, 
-            `${kimiRes}\n\n由 KIMI AI 总结`
+            `${res}\n\n由通义千问 AI 总结`
         );
     } catch (error: any) {
         console.error(error.message);

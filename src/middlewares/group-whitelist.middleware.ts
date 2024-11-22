@@ -3,7 +3,7 @@ import { groupWhitelist } from '../constants/whitelist';
 // types
 import type { BotEvent } from '../types/bot-event';
 
-export const groupWhitelistMiddleware = (req: Request, res: Response, next: NextFunction) => {
+export const groupWhitelistMiddleware = (req: Request, _: Response, next: NextFunction) => {
     const { group_id, message_type } = (req.body as BotEvent);
 
     if (!group_id || message_type !== 'group') {

@@ -2,7 +2,8 @@ import express from "express";
 // plugins
 import dotenv from "dotenv";
 // utils
-import { initializeClient } from "./utils/kimi/client";
+import { initializeAiClients } from "./utils/ai";
+import { initializeGroupWhiteList, initializeDeveloperWhiteList } from "./constants/whitelist";
 // global middlewares
 import { groupWhitelistMiddleware } from "./middlewares/group-whitelist.middleware";
 import { isAtMiddleware } from "./middlewares/is-at.middleware";
@@ -11,8 +12,12 @@ import { onebotController } from "./controllers/onebot.controller";
 
 dotenv.config({ path: './.env' });
 
-// 在此处初始化 client，避免 env api key 没有加载到问题
-initializeClient();
+// 初始化 AI client
+initializeAiClients();
+// 初始化群白名单
+initializeGroupWhiteList();
+// 初始化开发者白名单
+initializeDeveloperWhiteList();
 
 const app = express();
 // plugins
