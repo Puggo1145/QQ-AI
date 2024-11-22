@@ -8,7 +8,7 @@ import type { StandardResponse } from "@/types/standard-res";
 
 type GroupMsgHistory = StandardResponse<{ messages: Message[] }>;
 interface GroupHistoryConfig {
-    includeBotMessage: boolean;
+    includeBotMessage?: boolean;
     timeRange?: {
         startTime?: number; // Unix timestamp in milliseconds
         endTime?: number;   // Unix timestamp in milliseconds
@@ -54,12 +54,12 @@ export const getGroupMsgHistory = async (
         });
 
         const res = await axios.post<GroupMsgHistory>(`http://localhost:${process.env.SEND_PORT}/get_group_msg_history`, { 
-            groupId,
+            group_id: groupId,
             count,
         });
 
         if (res.data.status !== 'ok' || res.data.retcode !== 0) {
-            throw new Error('获取历史消息失败');
+            throw new Error(`获取历史消息失败: ${res.data.message}`);
         }
 
         let messages = res.data.data.messages;
@@ -81,6 +81,9 @@ export const getGroupMsgHistory = async (
                 return true;
             });
         }
+
+        // 过滤掉 message 为空的消息
+        messages = messages.filter(msg => msg.message.length > 0);
 
         return messages;
     } catch (error: any) {

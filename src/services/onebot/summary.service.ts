@@ -24,7 +24,6 @@ export const summaryGroupMsgService = async (group_id: BotEvent["group_id"]) => 
             group_id, 
             history_count,
             {
-                includeBotMessage: false,
                 timeRange: {
                     startTime: subDays(new Date(), 7).getTime(),
                     endTime: new Date().getTime()

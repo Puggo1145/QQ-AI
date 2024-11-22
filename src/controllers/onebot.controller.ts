@@ -1,12 +1,16 @@
 import { Request } from "express";
 // services
-import { pingPongService, summaryGroupMsgService } from "../services/onebot";
-import { devService } from "../services/dev/dev.service";
+import { devService } from "@/services/dev/dev.service";
+import { 
+    pingPongService, 
+    summaryGroupMsgService, 
+    superSummaryService 
+} from "@/services/onebot";
 // utils
-import { extractUserMsg } from "../utils/common/extract-user-msg";
-import { replyGroupMsg } from "../utils/onebot/message/reply-group-msg";
+import { extractUserMsg } from "@/utils/common/extract-user-msg";
+import { replyGroupMsg } from "@/utils/onebot/message";
 // types
-import type { BotEvent } from "../types/bot-event";
+import type { BotEvent } from "@/types/bot-event";
 
 export const onebotController = async (req: Request) => {
     const event = req.body as BotEvent;
@@ -24,6 +28,9 @@ export const onebotController = async (req: Request) => {
             break;
         case 'sum':
             await summaryGroupMsgService(event.group_id);
+            break;
+        case 'super-sum':
+            await superSummaryService(event.group_id);
             break;
         default:
             await replyGroupMsg(event.group_id, event.message_id, `未识别的命令`);
