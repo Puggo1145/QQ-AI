@@ -64,7 +64,7 @@ export const superSummaryService = async (group_id: BotMessage["group_id"]) => {
 
         await sendGroupTextMsg(
             group_id, 
-            `群事务总结文档已生成：https://${process.env.LARK_TENANT_ID}.feishu.cn/docx/${doc.document!.document_id}，请查收！\n由 通义千问 总结（AI 大模型可能存在错误，请仔细甄别）`
+            `群事务总结文档已生成：https://${process.env.LARK_TENANT_ID}.feishu.cn/docx/${doc.document!.document_id}\n由 通义千问 总结（AI 大模型可能存在错误，请仔细甄别）`
         );
     } catch (error: any) {
         console.error(error);

@@ -1,15 +1,8 @@
 import { Request } from "express";
-// services
+import { getCommand } from "@/services/onebot";
 import { devService } from "@/services/dev/dev.service";
-import { 
-    pingPongService, 
-    summaryGroupMsgService, 
-    superSummaryService 
-} from "@/services/onebot";
-// utils
 import { extractUserMsg } from "@/utils/common/extract-user-msg";
 import { replyGroupMsg } from "@/utils/onebot/message";
-// types
 import type { BotMessage } from "@/utils/onebot/types/bot-message";
 
 export const onebotController = async (req: Request) => {
@@ -22,18 +15,21 @@ export const onebotController = async (req: Request) => {
         return;
     }
 
-    switch (user_msg) {
-        case 'ping':
-            await pingPongService(event.group_id);
-            break;
-        case 'sum':
-            await summaryGroupMsgService(event.group_id);
-            break;
-        case 'super-sum':
-            await superSummaryService(event.group_id);
-            break;
-        default:
-            await replyGroupMsg(event.group_id, event.message_id, `未识别的命令`);
-            break;
+    // 查找并执行命令
+    const command = getCommand(user_msg);
+    if (command) {
+        try {
+            // 如果有验证函数，先验证
+            if (command.validate && !command.validate(event)) {
+                await replyGroupMsg(event.group_id, event.message_id, "您没有权限执行此命令");
+                return;
+            }
+            
+            await command.execute(event);
+        } catch (error: any) {
+            await replyGroupMsg(event.group_id, event.message_id, `命令执行失败: ${error.message}`);
+        }
+    } else {
+        await replyGroupMsg(event.group_id, event.message_id, "未识别的命令");
     }
 }
