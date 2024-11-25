@@ -13,7 +13,7 @@ test("parseSummaryToFeishuBlock", async () => {
     const blocks = parseSummaryToFeishuBlock(summaryJson);
     expect(blocks).toBeDefined();
 
-    const doc = await createDoc('test', 'Vx1bfDWoAlNcMydNNZUcRCyvnxf');
+    const doc = await createDoc('test1', 'Vx1bfDWoAlNcMydNNZUcRCyvnxf');
     expect(doc).toBeDefined();
 
     const block = await createBlock(doc?.document!.document_id!, doc?.document!.document_id!, blocks);

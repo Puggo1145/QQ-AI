@@ -32,7 +32,7 @@ export const superSummaryService = async (group_id: BotMessage["group_id"]) => {
         }, 20000);
 
         // 1. 获取最近 7 天的群消息历史
-        const history = await getGroupMsgHistory(group_id, 40, {
+        const history = await getGroupMsgHistory(group_id, 50, {
             timeRange: {
                 startTime: subDays(new Date(), 7).getTime(),
                 endTime: new Date().getTime()

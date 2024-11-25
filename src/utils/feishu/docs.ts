@@ -23,7 +23,7 @@ export const createDoc = async (title: string, folder_token: string) => {
         }
 
         // 设置公开可阅读权限
-        await client.drive.permissionPublic.patch({
+        await client.drive.v2.permissionPublic.patch({
             path: {
                 token: res.data!.document!.document_id!,
             },
@@ -31,9 +31,10 @@ export const createDoc = async (title: string, folder_token: string) => {
                 type: 'docx',
             },
             data: {
-                external_access: true,
+                external_access_entity: "open",
                 security_entity: "anyone_can_view",
-                share_entity: "anyone"
+                share_entity: "anyone",
+                link_share_entity: "anyone_readable"
             },
         }, lark.withTenantKey(token));
         
