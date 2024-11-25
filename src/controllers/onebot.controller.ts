@@ -6,12 +6,12 @@ import { replyGroupMsg } from "@/utils/onebot/message";
 import type { BotMessage } from "@/utils/onebot/types/bot-message";
 
 export const onebotController = async (req: Request) => {
-    const event = req.body as BotMessage;
-    const user_msg = extractUserMsg(event.raw_message);
+    const botMessage = req.body as BotMessage;
+    const user_msg = extractUserMsg(botMessage.raw_message);
 
     // 开发者命令
     if (user_msg.startsWith('dev-')) {
-        await devService(event, user_msg);
+        await devService(botMessage, user_msg);
         return;
     }
 
@@ -20,16 +20,16 @@ export const onebotController = async (req: Request) => {
     if (command) {
         try {
             // 如果有验证函数，先验证
-            if (command.validate && !command.validate(event)) {
-                await replyGroupMsg(event.group_id, event.message_id, "您没有权限执行此命令");
+            if (command.validate && !command.validate(botMessage)) {
+                await replyGroupMsg(botMessage.group_id, botMessage.message_id, "您没有权限执行此命令");
                 return;
             }
-            
-            await command.execute(event);
+
+            await command.execute(botMessage);
         } catch (error: any) {
-            await replyGroupMsg(event.group_id, event.message_id, `命令执行失败: ${error.message}`);
+            await replyGroupMsg(botMessage.group_id, botMessage.message_id, `命令执行失败: ${error.message}`);
         }
     } else {
-        await replyGroupMsg(event.group_id, event.message_id, "未识别的命令");
+        await replyGroupMsg(botMessage.group_id, botMessage.message_id, "未识别的命令");
     }
 }
