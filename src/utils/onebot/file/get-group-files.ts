@@ -1,6 +1,6 @@
 import axios from "axios";
-import type { BotEvent } from "@/types/bot-event";
-import type { StandardResponse } from "@/types/standard-res";
+import type { BotMessage } from "@/utils/onebot/types/bot-message";
+import type { StandardResponse } from "@/utils/onebot/types/standard-res";
 
 interface GroupFile {
     group_id: number;
@@ -22,7 +22,7 @@ type GroupFilesRes = StandardResponse<{ files: GroupFile[] }>;
  * @param group_id 需要获取所有文件信息的群号
  * @returns 群文件根目录下的文件列表
  */
-export const getGroupFiles = async (group_id: BotEvent["group_id"]) => {
+export const getGroupFiles = async (group_id: BotMessage["group_id"]) => {
     try {
         const res = await axios.post<GroupFilesRes>(`http://localhost:${process.env.SEND_PORT}/get_group_root_files`, {
             group_id,

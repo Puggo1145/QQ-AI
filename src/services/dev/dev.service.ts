@@ -3,9 +3,9 @@ import { getGroupFiles } from "@/utils/onebot/file";
 // constants
 import { developerWhitelist } from "@/constants/whitelist";
 // types
-import type { BotEvent } from "@/types/bot-event";
+import type { BotMessage } from "@/utils/onebot/types/bot-message";
 
-export const devService = async (event: BotEvent, command: string) => {
+export const devService = async (event: BotMessage, command: string) => {
     // Check if user is in dev whitelist
     if (!developerWhitelist.includes(event.sender.user_id)) {
         await replyGroupMsg(event.group_id, event.message_id, "您没有权限执行开发者命令");
@@ -18,7 +18,9 @@ export const devService = async (event: BotEvent, command: string) => {
             break;
         case 'dev-get-history':
             try {
-                const history_msgs = await getGroupMsgHistory(event.group_id, 10);
+                const history_msgs = await getGroupMsgHistory(event.group_id, 10, {
+                    includeBotMessage: true
+                });
                 console.log('最近10条历史消息：');
                 console.log(JSON.stringify(history_msgs, null, 2));
                 await replyGroupMsg(event.group_id, event.message_id, "历史消息已打印到控制台");

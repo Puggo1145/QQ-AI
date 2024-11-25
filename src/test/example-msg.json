@@ -1,0 +1,73 @@
+[
+    {
+        "sender": "西部点子王",
+        "time": 1732246251,
+        "messageType": "file",
+        "message": {
+            "file": "附件3 职业调研报告.docx",
+            "url": "file:///Users/puggo/Library/Containers/com.tencent.qq/Data/Downloads/%E9%99%84%E4%BB%B63%20%E8%81%8C%E4%B8%9A%E8%B0%83%E7%A0%94%E6%8A%A5%E5%91%8A.docx",
+            "file_id": "/2c3f93e4-a882-11ef-b193-5254005c24aa",
+            "path": "/Users/puggo/Library/Containers/com.tencent.qq/Data/Downloads/附件3 职业调研报告.docx",
+            "file_size": "35272"
+        }
+    },
+    {
+        "sender": "西部点子王",
+        "time": 1732246271,
+        "messageType": "at",
+        "message": {
+            "qq": "2157465200",
+            "name": "QQ AI"
+        }
+    },
+    {
+        "sender": "西部点子王",
+        "time": 1732246812,
+        "messageType": "text",
+        "message": {
+            "text": "qqnt不默认下载文件"
+        }
+    },
+    {
+        "sender": "西部点子王",
+        "time": 1732334483,
+        "messageType": "json",
+        "message": {
+            "data": {
+                "app": "com.tencent.structmsg",
+                "config": {
+                    "ctime": 1732062221,
+                    "forward": 1,
+                    "token": "d4893d9d564d5e4b4f9d5e90cca5a21a",
+                    "type": "normal"
+                },
+                "extra": {
+                    "app_type": 1,
+                    "appid": 1103188687,
+                    "msg_seq": 7439150594803592059,
+                    "uin": 2878687723
+                },
+                "meta": {
+                    "news": {
+                        "action": "",
+                        "android_pkg_name": "",
+                        "app_type": 1,
+                        "appid": 1103188687,
+                        "ctime": 1732062221,
+                        "desc": " ",
+                        "jumpUrl": "http://mp.weixin.qq.com/s?__biz=MzkxODQyMTM4NA==&mid=2247486346&idx=3&sn=b0f9dc5c1b85ce3d29c7b19d062c65c0&chksm=c07b9f589859f332aba625162488b3087b36f4b031560b02feff7027f68a4a9ceeb1c9c8ac6a&mpshare=1&scene=23&srcid=11200vEgzLi45hNiYNURTRpw&sharer_shareinfo=c300e241b3d69c349f0123759c3f65c0&sharer_shareinfo_first=c300e241b3d69c349f0123759c3f65c0#rd",
+                        "preview": "https://mmbiz.qpic.cn/sz_mmbiz_jpg/JOtMVoNSJxUxLibcd9HcrLKVr0tkl8cc32n9uDzhI3p9JCDp7cYGlM10QcFTBmPcNcZoNdIRiarIexQKcnec7Zpg/300?wx_fmt=jpeg&wxfrom=7",
+                        "source_icon": "https://p.qpic.cn/qqconnect/0/app_1103188687_1658800746/100?max-age=2592000&t=0",
+                        "source_url": "",
+                        "tag": "微信",
+                        "title": "【活动预告】无需预约面对面咨询",
+                        "uin": 2878687723
+                    }
+                },
+                "prompt": "[分享]【活动预告】无需预约面对面咨询",
+                "ver": "0.0.0.1",
+                "view": "news"
+            }
+        }
+    }
+]

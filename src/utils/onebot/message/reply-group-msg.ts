@@ -1,9 +1,9 @@
 import axios from "axios";
-import type { BotEvent } from "@/types/bot-event";
+import type { BotMessage } from "@/utils/onebot/types/bot-message";
 
 export const replyGroupMsg = async (
-    group_id: BotEvent["group_id"],
-    message_id: BotEvent["message_id"],
+    group_id: BotMessage["group_id"],
+    message_id: BotMessage["message_id"],
     message: string
 ) => {
     try {

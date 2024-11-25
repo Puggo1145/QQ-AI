@@ -3,10 +3,10 @@ import { z } from "zod";
 // utils
 import { mergeConfig } from "@/utils/common/merge-config";
 // types
-import type { BotEvent, Message } from "@/types/bot-event";
-import type { StandardResponse } from "@/types/standard-res";
+import type { BotMessage } from "@/utils/onebot/types/bot-message";
+import type { StandardResponse } from "@/utils/onebot/types/standard-res";
 
-type GroupMsgHistory = StandardResponse<{ messages: Message[] }>;
+type GroupMsgHistory = StandardResponse<{ messages: BotMessage[] }>;
 interface GroupHistoryConfig {
     includeBotMessage?: boolean;
     timeRange?: {
@@ -40,7 +40,7 @@ const schema = z.object({
  * @returns 消息列表
  */
 export const getGroupMsgHistory = async (
-    groupId: BotEvent["group_id"],
+    groupId: BotMessage["group_id"],
     count: number = 200,
     userConfig: GroupHistoryConfig = defaultConfig
 ) => {

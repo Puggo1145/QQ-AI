@@ -10,10 +10,10 @@ import {
 import { extractUserMsg } from "@/utils/common/extract-user-msg";
 import { replyGroupMsg } from "@/utils/onebot/message";
 // types
-import type { BotEvent } from "@/types/bot-event";
+import type { BotMessage } from "@/utils/onebot/types/bot-message";
 
 export const onebotController = async (req: Request) => {
-    const event = req.body as BotEvent;
+    const event = req.body as BotMessage;
     const user_msg = extractUserMsg(event.raw_message);
 
     // 开发者命令

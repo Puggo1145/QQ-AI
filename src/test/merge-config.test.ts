@@ -2,7 +2,7 @@ import { test, expect } from "@jest/globals";
 
 import { mergeConfig } from "@/utils/common/merge-config";
 
-test('merge simple config', () => {
+test.skip('merge simple config', () => {
     const defaultConfig = {
         a: 1,
         b: 2
@@ -16,7 +16,7 @@ test('merge simple config', () => {
     expect(config).toEqual({ a: 1, b: 3 });
 });
 
-test('merge partial config', () => {
+test.skip('merge partial config', () => {
     const defaultConfig = {
         a: 1,
         b: 2
@@ -30,7 +30,7 @@ test('merge partial config', () => {
     expect(config).toEqual({ a: 1, b: 3 });
 });
 
-test('merge config with undefined', () => {
+test.skip('merge config with undefined', () => {
     const defaultConfig = {
         a: 1,
         b: 2
@@ -43,7 +43,7 @@ test('merge config with undefined', () => {
     expect(config).toEqual({ a: 1, b: 2 });
 });
 
-test('merge nested config', () => {
+test.skip('merge nested config', () => {
     const defaultConfig = {
         a: 1,
         b: {

@@ -1,6 +1,6 @@
 import axios from "axios";
-import type { BotEvent } from "@/types/bot-event";
-import type { StandardResponse } from "@/types/standard-res";
+import type { BotMessage } from "@/utils/onebot/types/bot-message";
+import type { StandardResponse } from "@/utils/onebot/types/standard-res";
 
 type GetGroupFileUrlRes = StandardResponse<{
     url: string;
@@ -12,7 +12,7 @@ type GetGroupFileUrlRes = StandardResponse<{
  * @param file_id 文件 id
  * @returns 文件的本地 url
  */
-export const getGroupFileUrl = async (group_id: BotEvent["group_id"], file_id: string) => {
+export const getGroupFileUrl = async (group_id: BotMessage["group_id"], file_id: string) => {
     try {
         const res = await axios.post<GetGroupFileUrlRes>(`http://localhost:${process.env.SEND_PORT}/get_group_file_url`, {
             group_id,

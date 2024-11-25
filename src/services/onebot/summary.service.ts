@@ -1,18 +1,17 @@
 // utils
-import { extractUserMsg } from "../../utils/common/extract-user-msg";
-import { sendGroupTextMsg } from "../../utils/onebot/message/send-group-text-msg";
-import { getGroupMsgHistory } from "../../utils/onebot/message/get-group-msg-history";
+import { extractUserMsg } from "@/utils/common/extract-user-msg";
+import { sendGroupTextMsg } from "@/utils/onebot/message/send-group-text-msg";
+import { getGroupMsgHistory } from "@/utils/onebot/message/get-group-msg-history";
 import { format, subDays } from "date-fns";
 // chat
-// import { singleChat } from "../../utils/kimi";
-import { singleChat } from "../../utils/ai/qwen";
+// import { singleChat } from "@/utils/kimi";
+import { singleChat } from "@/utils/ai/qwen";
 // constants
-import { prompts } from "../../constants/prompts";
+import { prompts } from "@/constants/prompts";
 // types
-import type { BotEvent } from "../../types/bot-event";
+import type { BotMessage } from "@/utils/onebot/types/bot-message";
 
-
-export const summaryGroupMsgService = async (group_id: BotEvent["group_id"]) => {
+export const summaryGroupMsgService = async (group_id: BotMessage["group_id"]) => {
     const history_count = 100;
 
     try {
