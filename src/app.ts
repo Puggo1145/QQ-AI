@@ -1,28 +1,21 @@
 import express from "express";
-// plugins
 import dotenv from "dotenv";
-// utils
-import { initializeAiClients } from "./utils/ai";
-import { initializeGroupWhiteList, initializeDeveloperWhiteList } from "./constants/whitelist";
 // global middlewares
 import { groupWhitelistMiddleware } from "./middlewares/group-whitelist.middleware";
 import { isAtMiddleware } from "./middlewares/is-at.middleware";
 // controllers
 import { onebotController } from "./controllers/onebot.controller";
+// event
+import { eventBus } from "./utils/event-bus";
 
 dotenv.config({ path: './.env' });
 
-// 初始化 AI client
-initializeAiClients();
-// 初始化群白名单
-initializeGroupWhiteList();
-// 初始化开发者白名单
-initializeDeveloperWhiteList();
+eventBus.emit('init-ai-clients'); // 初始化 AI client
+eventBus.emit('init-group-whitelist'); // 初始化群白名单
+eventBus.emit('init-developer-whitelist'); // 初始化开发者白名单
 
 const app = express();
-// plugins
 app.use(express.json());
-// routes
 app.use(
     "/onebot",
     groupWhitelistMiddleware,

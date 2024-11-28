@@ -1,7 +1,8 @@
 import { initializeKimiClient } from "./kimi/client";
 import { initializeQwenClient } from "./qwen/client";
+import { eventBus } from "../event-bus";
 
-export const initializeAiClients = () => {
+eventBus.on('init-ai-clients', () => {
     const apiKeys = {
         KIMI_API_KEY: process.env.KIMI_API_KEY,
         QWEN_API_KEY: process.env.QWEN_API_KEY,
@@ -14,4 +15,4 @@ export const initializeAiClients = () => {
 
     apiKeys.KIMI_API_KEY && initializeKimiClient();
     apiKeys.QWEN_API_KEY && initializeQwenClient();
-};
+});

@@ -1,6 +1,5 @@
 import { Request } from "express";
 import { getCommand } from "@/services/onebot";
-import { devService } from "@/services/dev/dev.service";
 import { extractUserMsg } from "@/utils/common/extract-user-msg";
 import { replyGroupMsg } from "@/utils/onebot/message";
 import type { BotMessage } from "@/utils/onebot/types/bot-message";
@@ -8,12 +7,6 @@ import type { BotMessage } from "@/utils/onebot/types/bot-message";
 export const onebotController = async (req: Request) => {
     const botMessage = req.body as BotMessage;
     const user_msg = extractUserMsg(botMessage.raw_message);
-
-    // 开发者命令
-    if (user_msg.startsWith('dev-')) {
-        await devService(botMessage, user_msg);
-        return;
-    }
 
     // 查找并执行命令
     const command = getCommand(user_msg);
