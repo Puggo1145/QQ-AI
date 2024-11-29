@@ -5,14 +5,13 @@ import { groupWhitelistMiddleware } from "./middlewares/group-whitelist.middlewa
 import { isAtMiddleware } from "./middlewares/is-at.middleware";
 // controllers
 import { onebotController } from "./controllers/onebot.controller";
-// event
-import { eventBus } from "./utils/event-bus";
+// initialization
+import { initialize } from "./init";
 
 dotenv.config({ path: './.env' });
 
-eventBus.emit('init-ai-clients'); // 初始化 AI client
-eventBus.emit('init-group-whitelist'); // 初始化群白名单
-eventBus.emit('init-developer-whitelist'); // 初始化开发者白名单
+// 初始化相关服务
+initialize();
 
 const app = express();
 app.use(express.json());
